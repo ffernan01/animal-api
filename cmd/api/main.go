@@ -11,5 +11,5 @@ func main() {
 	r := chi.NewRouter()
 	handler.Configure(r)
 
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":3000", r)
 }
