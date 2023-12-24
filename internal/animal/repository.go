@@ -2,7 +2,6 @@ package animal
 
 import (
 	"context"
-	"errors"
 	"strings"
 	"sync"
 
@@ -45,7 +44,7 @@ func (i *inMemRepository) GetAll(context.Context) ([]Animal, error) {
 func (i *inMemRepository) Get(ctx context.Context, id ID) (Animal, error) {
 	v, ok := i.storage.Load(id)
 	if !ok {
-		return InvalidOne, errors.New("animal doesn't exist")
+		return InvalidOne, nil
 	}
 
 	return v.(Animal), nil

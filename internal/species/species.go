@@ -2,14 +2,15 @@ package species
 
 import (
 	"context"
-	"errors"
 	"sync"
 )
 
-var InvalidOne Species = Species{
-	ID:   "INVALID",
-	Name: "INVALID",
-}
+var (
+	InvalidOne Species = Species{
+		ID:   "INVALID",
+		Name: "INVALID",
+	}
+)
 
 // ID species identifier
 type ID string
@@ -50,7 +51,7 @@ func NewInMemRepository() Repository {
 func (i *inMemRepository) Get(ctx context.Context, id ID) (Species, error) {
 	v, ok := i.storage.Load(id)
 	if !ok {
-		return InvalidOne, errors.New("species doesn't exist")
+		return InvalidOne, nil
 	}
 
 	return v.(Species), nil

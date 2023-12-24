@@ -43,6 +43,12 @@ func getAnimal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if a == animal.InvalidOne {
+		fmt.Println("animal wasn't found")
+		http.Error(w, "not found", http.StatusNotFound)
+		return
+	}
+
 	b, e := json.Marshal(a)
 	if e != nil {
 		fmt.Printf("an error occurred. %v", e)
@@ -86,8 +92,8 @@ func postAnimal(w http.ResponseWriter, r *http.Request) {
 
 	e = json.Unmarshal(b, &dto)
 	if e != nil {
-		fmt.Printf("an error occurred. %v", e)
-		http.Error(w, "an error occurred", http.StatusBadRequest)
+		fmt.Printf("bad request. %v", e)
+		http.Error(w, "bad request", http.StatusBadRequest)
 		return
 	}
 
